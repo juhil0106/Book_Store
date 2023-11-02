@@ -17,6 +17,14 @@ services:
     restart: always
     ports:
       - "1433:1433"
+
+  basketdb:
+    container_name: basketdb
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
  
   discountdb:
     container_name: discountdb
@@ -57,6 +65,13 @@ services:
     ports:
       - "4001:80"
 
+  basket.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "CacheSettings:ConnectionString=basketdb:6379"
+    ports:
+      - "4002:80"
+
   discount.api:
     container_name: discount.api
     environment:
@@ -64,7 +79,6 @@ services:
       - "DatabaseSettings:ConnectionString=Server=discountdb;Port=5432;Database=DiscountDb;User Id=admin;Password=admin@123"
     ports:
       - "4003:80"
-
 
   discount.grpc:
     container_name: discount.grpc
