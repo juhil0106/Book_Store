@@ -5,7 +5,10 @@ services:
     image: mongo
 
   userdb:
-    image: mcr.microsoft.com/mssql/server
+    image: mcr.microsoft.com/mssql/server:2019-latest
+
+  basketdb:
+    image: redis:alpine
 
   discountdb:
     image: postgres
@@ -37,7 +40,14 @@ services:
       context: .
       dockerfile: Services/Discount/Discount.GRPC/Dockerfile
 
+  basket.api:
+    image: ${DOCKER_REGISTRY-}basketapi
+    build:
+      context: .
+      dockerfile: Services/Basket/Basket.API/Dockerfile
+
 volumes:
   mongo_data:
   postgres_data:
   pgadmin_data:
+  redis_data:
