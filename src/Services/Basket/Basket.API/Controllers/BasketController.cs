@@ -1,4 +1,5 @@
-﻿using Basket.API.Model;
+﻿using Basket.API.Grpc_Service;
+using Basket.API.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
@@ -11,10 +12,12 @@ namespace Basket.API.Controllers
     public class BasketController : ControllerBase
     {
         private readonly IDistributedCache _redisCache;
+        private readonly DiscountGrpcService _discountGrpcService;
 
-        public BasketController(IDistributedCache redisCache)
+        public BasketController(IDistributedCache redisCache, DiscountGrpcService discountGrpcService)
         {
             _redisCache = redisCache;
+            _discountGrpcService = discountGrpcService;
         }
 
         [HttpGet, Route("{userId}")]
@@ -31,6 +34,11 @@ namespace Basket.API.Controllers
         {
             try
             {
+                foreach (var item in basketDetail.Items)
+                {
+                    var coupon = await _discountGrpcService.GetDiscount(item.BookId);
+                    item.Price -= coupon.Discount;
+                }
                 await _redisCache.SetStringAsync(basketDetail.UserId.ToString(), JsonConvert.SerializeObject(basketDetail));
                 return Ok("Basket updated successfully.");
             }
