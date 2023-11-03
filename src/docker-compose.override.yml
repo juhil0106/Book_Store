@@ -49,6 +49,15 @@ services:
     volumes:
       - "pgadmin_data:/root/.pgadmin"
 
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbit_data:/var/lib/rabbitmq
+
   book.api:
     container_name: book.api
     environment:
@@ -69,6 +78,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "CacheSettings:ConnectionString=basketdb:6379"
+      - "RabbitMq:HostUrl=amqp://guest:guest@rabbitmq"
     ports:
       - "4002:80"
 
