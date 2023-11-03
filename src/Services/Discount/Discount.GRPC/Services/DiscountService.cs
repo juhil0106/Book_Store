@@ -2,7 +2,6 @@
 using Discount.GRPC.Protos;
 using Discount.GRPC.Repository;
 using Grpc.Core;
-using System.Security.Cryptography;
 
 namespace Discount.GRPC.Services
 {
