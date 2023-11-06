@@ -1,5 +1,6 @@
 ﻿using Book.API.Model;
 using Book.API.Repositories.IRepositories;
+using Book.API.ResponseModel;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Book.API.Controllers
@@ -9,31 +10,65 @@ namespace Book.API.Controllers
     public class BookController : ControllerBase
     {
         private readonly IBookRepository _bookRepository;
+        private readonly IBookImageRepository _bookImageRepository;
 
-        public BookController(IBookRepository bookRepository)
+        public BookController(IBookRepository bookRepository, IBookImageRepository bookImageRepository)
         {
             _bookRepository = bookRepository;
+            _bookImageRepository = bookImageRepository;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetBookDetails()
         {
             var books = await _bookRepository.GetBookDetails();
-            return Ok(books);
+            var bookResponseList = new List<BookResponse>();
+            foreach (var book in books)
+            {
+                var bookImages = await _bookImageRepository.GetBookImagesByBook(book.Id);
+                var bookResponse = new BookResponse
+                {
+                    BookDetail = book,
+                    BookImages = bookImages
+                };
+                bookResponseList.Add(bookResponse);
+            }
+            return Ok(bookResponseList);
         }
 
         [HttpGet, Route("ById/{id}")]
         public async Task<ActionResult> GetBookDetailById(string id)
         {
             var book = await _bookRepository.GetBookDetailById(id);
-            return book != null ? Ok(book) : BadRequest("Book not found.");
+            if (book is not null)
+            {
+                var bookImages = await _bookImageRepository.GetBookImagesByBook(book.Id);
+                var bookResponse = new BookResponse
+                {
+                    BookDetail = book,
+                    BookImages = bookImages
+                };
+                return Ok(book);
+            }
+            return BadRequest("Book not found.");
         }
 
         [HttpGet, Route("ByGenreId/{id}")]
         public async Task<IActionResult> GetBookDetailByGenreId(string id)
         {
             var books = await _bookRepository.GetBookDetailsByGenreId(id);
-            return Ok(books);
+            var bookResponseList = new List<BookResponse>();
+            foreach (var book in books)
+            {
+                var bookImages = await _bookImageRepository.GetBookImagesByBook(book.Id);
+                var bookResponse = new BookResponse
+                {
+                    BookDetail = book,
+                    BookImages = bookImages
+                };
+                bookResponseList.Add(bookResponse);
+            }
+            return Ok(bookResponseList);
         }
 
         [HttpGet, Route("[action]")]
@@ -47,7 +82,18 @@ namespace Book.API.Controllers
         public async Task<IActionResult> GetBookDetailByAuthor(string authorName)
         {
             var books = await _bookRepository.GetBookDetailsByAuthor(authorName);
-            return Ok(books);
+            var bookResponseList = new List<BookResponse>();
+            foreach (var book in books)
+            {
+                var bookImages = await _bookImageRepository.GetBookImagesByBook(book.Id);
+                var bookResponse = new BookResponse
+                {
+                    BookDetail = book,
+                    BookImages = bookImages
+                };
+                bookResponseList.Add(bookResponse);
+            }
+            return Ok(bookResponseList);
         }
 
         [HttpPost]

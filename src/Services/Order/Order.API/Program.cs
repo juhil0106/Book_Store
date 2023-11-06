@@ -1,5 +1,3 @@
-using MassTransit;
-using Order.Service.EventBusConsumer;
 using Order.Service.ServiceDependency;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -9,13 +9,16 @@ namespace Order.Service.MapperProfile
     {
         public OrderProfile()
         {
-            CreateMap<AddOrderDetailsDto, OrderDetailsDto>().ReverseMap();
-            CreateMap<AddOrderItemsDto, OrderItemsDto>().ReverseMap();
+            CreateMap<AddOrderDetailsDto, OrderDetails>().ReverseMap();
+            CreateMap<AddOrderItemsDto, OrderItem>().ReverseMap();
             CreateMap<UpdateOrderItemDto, OrderItem>().ReverseMap();
             CreateMap<UpdateOrderDetailsDto, OrderDetails>().ReverseMap();
             CreateMap<OrderDetails, OrderDetailsDto>().ReverseMap();
             CreateMap<OrderItem, OrderItemsDto>().ReverseMap();
+            CreateMap<BasketCheckoutEvent, AddOrderDetailsDto>().ReverseMap();
+            CreateMap<CheckoutOrderItem, AddOrderItemsDto>().ReverseMap();
             CreateMap<BookQuantityDto, BookQuantityEvent>().ReverseMap();
+            CreateMap<BookDto, BookEvent>().ReverseMap();
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Book.API.Context;
 using Book.API.Model;
 using Book.API.Repositories.IRepositories;
-using Book.API.ResponseModel;
 using MongoDB.Driver;
 
 namespace Book.API.Repositories
@@ -9,75 +8,36 @@ namespace Book.API.Repositories
     public class BookRepository : IBookRepository
     {
         private readonly IBookContext _context;
-        private readonly IBookImageRepository _bookImageRepository;
 
-        public BookRepository(IBookContext context, IBookImageRepository bookImageRepository)
+        public BookRepository(IBookContext context)
         {
             _context = context;
-            _bookImageRepository = bookImageRepository;
         }
 
-        public async Task<List<BookResponse>> GetBookDetails()
+        public async Task<List<BookDetail>> GetBookDetails()
         {
             var books = await _context.Books.Aggregate().ToListAsync();
-            var bookResponseList = new List<BookResponse>();
-            foreach (var book in books)
-            {
-                var bookImages = await _bookImageRepository.GetBookImagesByBook(book.Id);
-                var bookResponse = new BookResponse
-                {
-                    BookDetail = book,
-                    BookImages = bookImages
-                };
-                bookResponseList.Add(bookResponse);
-            }
-            return bookResponseList;
+
+            return books;
         }
 
-        public async Task<BookResponse> GetBookDetailById(string id)
+        public async Task<BookDetail> GetBookDetailById(string id)
         {
             var book = await _context.Books.Find(x => x.Id == id).FirstOrDefaultAsync();
-            var bookImages = await _bookImageRepository.GetBookImagesByBook(book.Id);
-            var bookResponse = new BookResponse
-            {
-                BookDetail = book,
-                BookImages = bookImages
-            };
-            return bookResponse;
+
+            return book;
         }
 
-        public async Task<List<BookResponse>> GetBookDetailsByGenreId(string id)
+        public async Task<List<BookDetail>> GetBookDetailsByGenreId(string id)
         {
             var books = await _context.Books.Find(x => x.GenreId == id).ToListAsync();
-            var bookResponseList = new List<BookResponse>();
-            foreach (var book in books)
-            {
-                var bookImages = await _bookImageRepository.GetBookImagesByBook(book.Id);
-                var bookResponse = new BookResponse
-                {
-                    BookDetail = book,
-                    BookImages = bookImages
-                };
-                bookResponseList.Add(bookResponse);
-            }
-            return bookResponseList;
+            return books;
         }
 
-        public async Task<List<BookResponse>> GetBookDetailsByAuthor(string authorName)
+        public async Task<List<BookDetail>> GetBookDetailsByAuthor(string authorName)
         {
             var books = await _context.Books.Find(x => x.AuthorName == authorName).ToListAsync();
-            var bookResponseList = new List<BookResponse>();
-            foreach (var book in books)
-            {
-                var bookImages = await _bookImageRepository.GetBookImagesByBook(book.Id);
-                var bookResponse = new BookResponse
-                {
-                    BookDetail = book,
-                    BookImages = bookImages
-                };
-                bookResponseList.Add(bookResponse);
-            }
-            return bookResponseList;
+            return books;
         }
 
         public async Task<List<string>> GetAuthorsName()
@@ -95,7 +55,7 @@ namespace Book.API.Repositories
             }
             catch (Exception)
             {
-                return false;                    
+                return false;
             }
         }
 
