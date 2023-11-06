@@ -16,7 +16,7 @@ services:
         ACCEPT_EULA: "Y"
     restart: always
     ports:
-      - "1433:1433"
+      - "1434:1433"
 
   basketdb:
     container_name: basketdb
@@ -36,7 +36,16 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - postgres_data:/var/lib/postgresql/data/ 
+
+  orderdb:
+    container_name: orderdb
+    environment:
+        SA_PASSWORD: "Juhil.BS@123"
+        ACCEPT_EULA: "Y"
+    restart: always
+    ports:
+      - "1433:1433"
 
   pgadmin:
     container_name: pgadmin
@@ -63,6 +72,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "DatabaseSettings:ConnectionString=mongodb://bookdb:27017"
+      - "RabbitMq:HostUrl=amqp://guest:guest@rabbitmq"
     ports:
       - "4000:80"
 
@@ -97,3 +107,12 @@ services:
       - "DatabaseSettings:ConnectionString=Server=discountdb;Port=5432;Database=DiscountDb;User Id=admin;Password=admin@123"
     ports:
       - "4004:80"
+
+  order.api:
+    container_name: order.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:DefaultConnection=Server=orderdb;Database=OrderDb;User Id=sa;Password=Juhil.BS@123;MultipleActiveResultSets=True;TrustServerCertificate=True"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq"
+    ports:
+      - "4005:80"
