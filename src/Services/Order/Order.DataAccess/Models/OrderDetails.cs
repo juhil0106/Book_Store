@@ -4,13 +4,13 @@
     {
         public OrderDetails()
         {
-            OrderItems = new List<OrderItem>();
+            Items = new List<OrderItem>();
         }
 
         public int Id { get; set; }
         public int UserId { get; set; }
         public decimal TotalPrice { get; set; }
-        public string Addess { get; set; } = null!;
+        public string Address { get; set; } = null!;
         public string Country { get; set; } = null!;
         public string State { get; set; } = null!;
         public string City { get; set; } = null!;
@@ -22,6 +22,6 @@
         public string? Cvv { get; set; }
         public string? Upi { get; set; }
 
-        public virtual List<OrderItem> OrderItems { get; set; }
+        public virtual List<OrderItem> Items { get; set; }
     }
 }

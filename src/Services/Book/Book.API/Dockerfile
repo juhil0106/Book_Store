@@ -7,6 +7,7 @@ EXPOSE 80
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["Services/Book/Book.API/Book.API.csproj", "Services/Book/Book.API/"]
+COPY ["BuildingBlock/EventBus.Messages/EventBus.Messages.csproj", "BuildingBlock/EventBus.Messages"]
 RUN dotnet restore "Services/Book/Book.API/Book.API.csproj"
 COPY . .
 WORKDIR "/src/Services/Book/Book.API"

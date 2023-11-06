@@ -31,7 +31,7 @@ namespace Order.DataAccess.Context
             {
                 entity.ToTable("OrderDetails");
 
-                entity.Property(e => e.Addess).IsUnicode(false);
+                entity.Property(e => e.Address).IsUnicode(false);
 
                 entity.Property(e => e.CardName)
                     .HasMaxLength(50)
@@ -80,7 +80,7 @@ namespace Order.DataAccess.Context
 
             modelBuilder.Entity<OrderItem>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
+                entity.Property(e => e.Id);
 
                 entity.Property(e => e.BookId)
                     .HasMaxLength(30)
@@ -89,7 +89,7 @@ namespace Order.DataAccess.Context
                 entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
 
                 entity.HasOne(d => d.Order)
-                    .WithMany(p => p.OrderItems)
+                    .WithMany(p => p.Items)
                     .HasForeignKey(d => d.OrderId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_OrderItems_Order");

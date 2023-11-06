@@ -35,15 +35,16 @@ namespace Order.Service.Service
             if (order is not null)
             {
                 List<BookQuantityDto> bookQuantities = new List<BookQuantityDto>();
-                foreach(var item in order.OrderItems)
+                foreach(var item in order.Items)
                 {
                     BookQuantityDto bookQuantity = new BookQuantityDto();
                     bookQuantity.Quantity = item.Quantity;
                     bookQuantity.BookId = item.BookId;
                     bookQuantities.Add(bookQuantity);
                 }
+                var bookDto = new BookDto() { BookQuantities = bookQuantities};
 
-                var eventMessage = _mapper.Map<List<BookQuantityEvent>>(bookQuantities);
+                var eventMessage = _mapper.Map<BookEvent>(bookDto);
                 await _publishEndpoint.Publish(eventMessage);
                 return order.Id;
             }

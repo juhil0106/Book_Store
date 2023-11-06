@@ -9,11 +9,11 @@
         public string State { get; set; } = null!;
         public string City { get; set; } = null!;
         public string ZipCode { get; set; } = null!;
-        public string PaymentMode { get; set; } = null!;
+        public string? PaymentMode { get; set; }
         public string? CardName { get; set; }
         public string? CardNumber { get; set; }
         public string? Expiration { get; set; }
-        public int CVV { get; set; }
-        public string? UPI { get; set; }
+        public string? Cvv { get; set; }
+        public string? Upi { get; set; }
     }
 }

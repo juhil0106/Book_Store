@@ -19,7 +19,7 @@ namespace Order.Service.EventBusConsumer
 
         public async Task Consume(ConsumeContext<BasketCheckoutEvent> context)
         {
-            var order = _mapper.Map<AddOrderDetailsDto>(context);
+            var order = _mapper.Map<AddOrderDetailsDto>(context.Message);
             await _orderService.AddOrderDetailsAsync(order);
         }
     }
