@@ -15,7 +15,7 @@ namespace Order.API.Controllers
             _orderService = orderService;
         }
 
-        [HttpGet]
+        [HttpGet, Route("{userId}")]
         public async Task<IActionResult> GetOrderDetails(int userId)
         {
             var order = await _orderService.GetOrderDetailsAsync(userId);
@@ -36,7 +36,7 @@ namespace Order.API.Controllers
             return order > 0 ? Ok("Order updated successfully.") : BadRequest("Unable to update order.");
         }
 
-        [HttpDelete]
+        [HttpDelete, Route("{id}")]
         public async Task<IActionResult> DeleteUpdateOrderDetails(int id)
         {
             var order = await _orderService.DeleteOrderDetailsAsync(id);

@@ -15,10 +15,10 @@ namespace Book.API.Controllers
             _bookImageRepository = bookImageRepository;
         }
 
-        [HttpGet, Route("{id}")]
-        public async Task<IActionResult> GetBookImagesByBook(string id)
+        [HttpGet, Route("{bookId}")]
+        public async Task<IActionResult> GetBookImagesByBook(string bookId)
         {
-            var bookImages = await _bookImageRepository.GetBookImagesByBook(id);
+            var bookImages = await _bookImageRepository.GetBookImagesByBook(bookId);
             return Ok(bookImages);
         }
 

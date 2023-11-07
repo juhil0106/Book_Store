@@ -16,7 +16,7 @@ namespace Discount.API.Controllers
             _discountRepository = discountRepository;
         }
 
-        [HttpGet]
+        [HttpGet, Route("{bookId}")]
         public async Task<IActionResult> GetBookDiscount(string bookId)
         {
             var bookDiscount = await _discountRepository.GetBookDiscount(bookId);
@@ -37,7 +37,7 @@ namespace Discount.API.Controllers
             return discount is true ? Ok("Book discount updated successfully.") : BadRequest("Unable to update book discount.");
         }
 
-        [HttpDelete]
+        [HttpDelete, Route("{bookId}")]
         public async Task<IActionResult> DeleteBookDiscount(string bookId)
         {
             var discount = await _discountRepository.DeleteBookDiscount(bookId);

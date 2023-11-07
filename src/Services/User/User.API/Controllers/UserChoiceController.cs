@@ -19,7 +19,7 @@ namespace User.API.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet, Route("{userId}")]
         public async Task<IActionResult> GetUserChoices(int userId)
         {
             var userChoice = await _userChoiceRepository.GetUserChoiceByUserId(userId);
@@ -44,7 +44,7 @@ namespace User.API.Controllers
             return updatedUserChoices > 0 ? Ok("User choices updted successfully.") : BadRequest("Unable to update user choices");
         }
 
-        [HttpDelete]
+        [HttpDelete, Route("{id}")]
         public async Task<IActionResult> DeleteUserChoices(int id)
         {
             var deletedUserChoice = await _userChoiceRepository.DeleteUserChoice(id);
