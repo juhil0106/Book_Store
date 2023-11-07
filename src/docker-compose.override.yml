@@ -117,3 +117,10 @@ services:
       - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq"
     ports:
       - "4005:80"
+
+  ocelotapigateway:
+    container_name: oecelotapigateway
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "4006:80"

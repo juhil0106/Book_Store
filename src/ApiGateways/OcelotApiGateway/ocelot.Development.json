@@ -1,0 +1,316 @@
+{
+  "Routes": [
+    // Book api
+    {
+      "DownstreamPathTemplate": "/api/Book",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "book.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/Book",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT" ],
+      "FileCacheOptions": { "TtlSeconds": 30 }
+    },
+    {
+      "DownstreamPathTemplate": "/api/Book/ById/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "book.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/Book/ById/{id}",
+      "UpstreamHttpMethod": [ "GET", "DELETE" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Book/ByGenreId/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "book.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/Book/ByGenreId/{id}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Book/{authorName}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "book.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/Book/{authorName}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/GetAuthorsName",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "book.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/GetAuthorsName",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+
+    // Genre api
+    {
+      "DownstreamPathTemplate": "/api/Genre",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "book.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/Genre",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Genre/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "book.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/Genre/{id}",
+      "UpstreamHttpMethod": [ "DELETE" ]
+    },
+
+    // BookImage api
+    {
+      "DownstreamPathTemplate": "/api/BookImage/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "book.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/BookImage/{id}",
+      "UpstreamHttpMethod": [ "DELETE" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/BookImage/{bookId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "book.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/BookImage/{bookId}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/BookImage",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "book.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/BookImage",
+      "UpstreamHttpMethod": [ "POST", "PUT" ]
+    },
+
+    //Basket api
+    {
+      "DownstreamPathTemplate": "/api/Basket/{userId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "basket.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/Basket/{userId}",
+      "UpstreamHttpMethod": [ "GET", "DELETE" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Basket/Checkout",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "basket.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/Basket/Checkout",
+      "UpstreamHttpMethod": [ "POST" ],
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "5s",
+        "PeriodTimespan": 5,
+        "Limit": 1
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/Basket/UpdateBasket",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "basket.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/Basket/UpdateBasket",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+
+    //Discount api
+    {
+      "DownstreamPathTemplate": "/api/Discount",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "discount.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/Discount",
+      "UpstreamHttpMethod": [ "POST", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Discount/{bookId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "discount.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/Discount/{bookId}",
+      "UpstreamHttpMethod": [ "GET", "DELETE" ]
+    },
+
+    // User api
+    {
+      "DownstreamPathTemplate": "/api/UserChoice",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "user.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/UserChoice",
+      "UpstreamHttpMethod": [ "POST", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/UserChoice/{userId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "user.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/UserChoice/{userId}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/UserChoice/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "user.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/UserChoice/{id}",
+      "UpstreamHttpMethod": [ "DELETE" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/UserDetails",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "user.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/UserDetails",
+      "UpstreamHttpMethod": [ "GET", "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/UserDetails/Login",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "user.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/UserDetails/Login",
+      "UpstreamHttpMethod": [ "POST" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/UserDetails/UpdatePassword",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "user.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/UserDetails/UpdatePassword",
+      "UpstreamHttpMethod": [ "PUT" ]
+    },
+
+    //Order api
+    {
+      "DownstreamPathTemplate": "/api/Order",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "order.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/Order",
+      "UpstreamHttpMethod": [ "POST", "PUT" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Order/{userId}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "order.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/Order/{userId}",
+      "UpstreamHttpMethod": [ "GET" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/Order/{id}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "order.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/Order/{id}",
+      "UpstreamHttpMethod": [ "DELETE" ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:4020"
+  }
+}
