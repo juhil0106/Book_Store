@@ -16,9 +16,9 @@ namespace Order.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetOrderDetails()
+        public async Task<IActionResult> GetOrderDetails(int userId)
         {
-            var order = await _orderService.GetOrderDetailsAsync();
+            var order = await _orderService.GetOrderDetailsAsync(userId);
             return Ok(order);
         }
 

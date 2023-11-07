@@ -14,9 +14,9 @@ namespace Order.DataAccess.Repository
             _context = context;
         }
 
-        public async Task<List<OrderDetails>> GetOrderDetails()
+        public async Task<List<OrderDetails>> GetOrderDetails(int userId)
         {
-            return await _context.OrderDetails.ToListAsync();
+            return await _context.OrderDetails.Where(x => x.UserId == userId).ToListAsync();
         }
 
         public async Task<OrderDetails> AddOrderDetails(OrderDetails orderDetails)

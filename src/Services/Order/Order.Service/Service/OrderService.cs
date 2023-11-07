@@ -21,9 +21,9 @@ namespace Order.Service.Service
             _publishEndpoint = publishEndpoint;
         }
 
-        public async Task<List<OrderDetailsDto>> GetOrderDetailsAsync()
+        public async Task<List<OrderDetailsDto>> GetOrderDetailsAsync(int userId)
         {
-            var order = await _orderRepository.GetOrderDetails();
+            var order = await _orderRepository.GetOrderDetails(userId);
             return _mapper.Map<List<OrderDetailsDto>>(order);
         }
 
