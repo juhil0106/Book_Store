@@ -110,7 +110,7 @@ namespace Book.API.Controllers
             return flag ? Ok("Book updated successfully.") : BadRequest("Unable to update book.");
         }
 
-        [HttpDelete, Route("{id}")]
+        [HttpDelete, Route("/ById{id}")]
         public async Task<ActionResult> DeleteBook(string id)
         {
             var flag = await _bookRepository.DeleteBook(id);
